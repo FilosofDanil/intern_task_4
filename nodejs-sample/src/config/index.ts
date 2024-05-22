@@ -11,7 +11,7 @@ const config = {
       },
     },
     service: {
-      name: 'intern_task_4',
+      name: 'nodejs-sample',
     },
   },
   log4js: {

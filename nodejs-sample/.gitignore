@@ -21,4 +21,3 @@ log/newrelic_agent.log
 
 .npmrc_docker
 
-package-lock.json
