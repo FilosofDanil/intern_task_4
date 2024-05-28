@@ -34,7 +34,7 @@ const jobForSearch = new Job({
   dateTo: "2023-11-03T00:00:00.000Z",
 });
 
-describe('Student Service', () => {
+describe('Job Service', () => {
   before(async () => {
     /**
      * The mongoSetup promise is resolved when the database is ready to be used.
