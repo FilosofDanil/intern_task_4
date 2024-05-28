@@ -82,3 +82,5 @@ If everything is fine, you should see the list of passed tests
 npm run coverage
 ```
 If everything is fine, you should see the table with coverage after passed tests
+
+docker-compose build && docker-compose up

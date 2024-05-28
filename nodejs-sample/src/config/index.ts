@@ -1,18 +1,32 @@
 const config = {
-  consul: {
-    server: {
-      prod: {
-        host: 'consul',
-        port: '8500',
-      },
-      dev: {
-        host: 'localhost',
-        port: '8501',
-      },
+
+  // consul: {
+  //   server: {
+  //     prod: {
+  //       host: 'consul',
+  //       port: '8500',
+  //     },
+  //     dev: {
+  //       host: 'localhost',
+  //       port: '8888',
+  //     },
+  //   },
+  //   service: {
+  //     name: 'nodejs-sample',
+  //   },
+  // },
+  server: {
+    prod: {
+      host: 'consul',
+      port: '8500',
     },
-    service: {
-      name: 'nodejs-sample',
+    dev: {
+      host: 'localhost',
+      port: '8888',
     },
+  },
+  mongo:{
+    host: 'mongodb://localhost:27017/',
   },
   log4js: {
     appenders: {
