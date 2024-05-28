@@ -99,6 +99,8 @@ describe('Student Service', () => {
   });
 
   it('createJob should throw error if employee not found', (done) => {
+    const validateEmployeeStub = sandbox.stub(jobService, 'employeeExists')
+      .returns(Promise.resolve(false));
     const jobSaveDto: JobSaveDto = {
       name: 'John',
       employeeId: 3,
@@ -109,6 +111,7 @@ describe('Student Service', () => {
       .then(() => done(new Error('Expected method to reject.')))
       .catch((error: Error) => {
         expect(error.message).to.include(`Employee with id 3 doesn't exist`);
+        expect(validateEmployeeStub.called).to.be.true;
         done();
       });
   });

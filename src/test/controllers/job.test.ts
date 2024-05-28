@@ -55,6 +55,34 @@ describe('Job controller', () => {
       });
   });
 
+
+  it('should return error while save the job with invalid employeeId', (done) => {
+    const validateEmployeeStub = sandbox.stub(jobService, 'employeeExists')
+      .returns(Promise.resolve(false));
+    const jobIdAfterSave = new ObjectId();
+    const job = {
+      name: "Sos",
+      employeeId: 66,
+      dateFrom: "2022-11-02T00:00:00.000Z",
+      dateTo: "2023-11-03T00:00:00.000Z",
+    };
+    const saveOneStub = sandbox.stub(Job.prototype, 'save');
+    saveOneStub.resolves({
+      ...job,
+      _id: jobIdAfterSave,
+    });
+
+    chai.request(app)
+      .post('')
+      .send(job)
+      .end((err, res) => {
+        if (err) return done(err);
+        res.should.have.status(500);
+        expect(validateEmployeeStub.calledOnceWith(job.employeeId)).to.be.true;
+        done();
+      });
+  });
+
   it('should list the jobs', (done) => {
     const jobs = [
       {
@@ -86,6 +114,20 @@ describe('Job controller', () => {
       .end((_, res) => {
         res.should.have.status(200);
         expect(res.body).to.deep.equal(jobs);
+        expect(validateEmployeeStub.called).to.be.true;
+        done();
+      });
+  },
+  );
+
+  it('should return error if given employeeId is not exist', (done) => {
+    const validateEmployeeStub = sandbox.stub(jobService, 'employeeExists')
+      .returns(Promise.resolve(false));
+    chai.request(app)
+      .get('')
+      .query('employeeId=' + 66)
+      .end((_, res) => {
+        res.should.have.status(500);
         expect(validateEmployeeStub.called).to.be.true;
         done();
       });
